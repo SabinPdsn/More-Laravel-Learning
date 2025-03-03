@@ -5,10 +5,11 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -24,10 +25,15 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    public function getHidden(){
+        $hiddenfields = ['password', 'remember_token'];
 
+        if($this->role==='admin'){
+            $hiddenfields = ['role','email','password','remember_token'];
+        }
+        return $hiddenfields;
+
+    }
     /**
      * The attributes that should be cast to native types.
      *

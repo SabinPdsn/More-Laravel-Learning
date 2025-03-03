@@ -16,7 +16,7 @@
 
     <div style="color: red">
     @error('files.*')
-        <div class="error">{{ $message }}</div>
+        {{ $message }}
     @enderror
 
     </div>

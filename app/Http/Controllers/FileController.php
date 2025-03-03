@@ -25,13 +25,14 @@ class FileController extends Controller
             $file_paths[] = $filepath;
             $fileurl[] = url('storage/' . $filepath);
         }
-    }
 
         return response()->json([
             'message' => 'file uploaded successfully',
             'file-path' => $file_paths,
             'file_url' => $fileurl
         ]);
+    }
+    return response('cannot find file to upload');
 
     }
 
